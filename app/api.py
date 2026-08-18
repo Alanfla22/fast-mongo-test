@@ -28,7 +28,7 @@ origins = [
     "http://localhost",
     "http://localhost:8080",
     "http://127.0.0.1:5500",
-    "http://127.0.0.1:5500/index",
+    "http://127.0.0.1:5500/index.html",
     "http://127.0.0.1:59614"
 ]
 
@@ -54,7 +54,7 @@ def root():
             
     return docs
 
-@app.post("/new_card")
+@app.post("/index.html/new_card")
 def new_card(data: Annotated[Card, Form()]):
     print(data)
     return data
