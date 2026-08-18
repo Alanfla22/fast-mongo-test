@@ -54,7 +54,7 @@ def root():
             
     return docs
 
-@app.post("/index.html/new_card")
+@app.post("/new_card/")
 def new_card(data: Annotated[Card, Form()]):
     print(data)
     return data
