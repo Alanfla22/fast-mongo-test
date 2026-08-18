@@ -17,7 +17,7 @@ app = FastAPI()
 # listando todos os documentos de uma coleção
 
 @app.get("/")
-async def root():
+def root():
 
     with MongoClient(uri, server_api=ServerApi('1')) as client:
 
