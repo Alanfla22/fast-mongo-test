@@ -10,7 +10,6 @@ from pydantic import BaseModel
 
 class Card(BaseModel):
 
-  _id: str | None = None  
   termo: str | None = None
   significado: str | None = None
 
