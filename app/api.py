@@ -23,6 +23,6 @@ def root():
         db = client.get_database("flash_cards")
         all_cards = db.cards.find({})
 
-        docs = json.dumps([doc for doc in all_cards], indent=4, default=str, ensure_ascii=False)
+        docs = json.dumps([doc for doc in all_cards], default=str, ensure_ascii=False)
             
     return docs
