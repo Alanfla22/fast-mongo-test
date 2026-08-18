@@ -2,9 +2,17 @@ from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 import os
 import json
-from fastapi import FastAPI
+from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Annotated
+from pydantic import BaseModel
 
+
+class Card(BaseModel):
+
+  _id: str | None = None  
+  termo: str | None = None
+  significado: str | None = None
 
 MONGO_KEY = os.environ["MONGO_KEY"]
 MONGO_USER = "jalanfla15_db_user"
@@ -43,3 +51,8 @@ def root():
         docs = json.dumps([doc for doc in all_cards], default=str, ensure_ascii=False)
             
     return docs
+
+@app.post("/new_card")
+def new_card(data: Annotated[Card, Form()]):
+    print(data)
+    return data
