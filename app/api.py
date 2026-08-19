@@ -67,15 +67,14 @@ def new_card(card: Annotated[Card, Form()]):
             db = client.get_database("flash_cards")
             result = db.cards.insert_one(new_card)
 
-            print(f"card iinserido  {result}!") 
-
-            all_cards = db.cards.find({})
-    
-            docs = json.dumps([doc for doc in all_cards], default=str, ensure_ascii=False)      
+            print(f"card iinserido  {result}!")
+   
         
         except:
 
-            print("não deu certo!")    
+            print("não deu certo!")
+
+    return json.dumps(new_card, default=str, ensure_ascii=False)
 
 
   
