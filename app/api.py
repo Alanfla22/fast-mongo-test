@@ -61,7 +61,6 @@ def root():
 @app.post(
     "/new_card/",
     response_description="Add new card",
-    status_code=status.HTTP_201_CREATED,
     response_model_by_alias=False,
 )
 def new_card(card: Card = Body(...)):
