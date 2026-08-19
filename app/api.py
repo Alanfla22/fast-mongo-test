@@ -57,7 +57,7 @@ def root():
 
 
 @app.post("/new_card/")
-def new_card(card: Annotated[Card, Form()):
+def new_card(card: Annotated[Card, Form()]):
 
     print(card)
     print("feito!!!")
