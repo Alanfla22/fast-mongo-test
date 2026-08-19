@@ -70,8 +70,6 @@ def new_card(card: Annotated[Card, Form()]):
             print(new_card)
             db = client.get_database("flash_cards")
         
-            result = db.cards.insert_one(new_card)
-
         except:
 
             print("não deu certo!")    
