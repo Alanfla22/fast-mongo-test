@@ -60,4 +60,12 @@ def root():
 def new_card(data: Annotated[Card, Form()]):
     print(data)
     print("feito!!!")
+    
+    db = client.get_database("flash_cards")
+    all_cards = db.cards.find({})
+
+    docs = json.dumps([doc for doc in all_cards], default=str, ensure_ascii=False)
+            
+    return docs
+    
 
