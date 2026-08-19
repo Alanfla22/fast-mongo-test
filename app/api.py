@@ -2,18 +2,16 @@ from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 import os
 import json
-from fastapi import FastAPI, Form, Body
+from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Annotated, Optional
-from pydantic import BaseModel, BeforeValidator, Field
-
-PyObjectId = Annotated[str, BeforeValidator(str)]
+from typing import Annotated
+from pydantic import BaseModel
 
 class Card(BaseModel):
 
-  id: Optional[PyObjectId] = Field(alias="_id", default=None)
-  termo: Optional[str] = None
-  significado: Optional[str] = None
+  _id: str | None = None
+  termo: str | None = None
+  significado: str | None = None
 
 MONGO_KEY = os.environ["MONGO_KEY"]
 MONGO_USER = "jalanfla15_db_user"
@@ -58,12 +56,8 @@ def root():
     return docs
 
 
-@app.post(
-    "/new_card/",
-    response_description="Add new card",
-    response_model_by_alias=False,
-)
-def new_card(card: Card = Body(...)):
+@app.post("/new_card/")
+def new_card(card: Annotated[Card, Form()):
 
     print(card)
     print("feito!!!")
@@ -71,6 +65,8 @@ def new_card(card: Card = Body(...)):
     with MongoClient(uri, server_api=ServerApi('1')) as client:
       
       new_card = card.model_dump(by_alias=True, exclude=["id"])
+
+      print(new_card)
       db = client.get_database("flash_cards")
   
       result = db.cards.insert_one(new_card)
