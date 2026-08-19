@@ -77,7 +77,7 @@ def new_card(card: Annotated[Card, Form()]):
 
             print("não deu certo!")    
 
-    return docs  
+
   
              
     
