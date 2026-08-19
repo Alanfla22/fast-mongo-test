@@ -55,7 +55,7 @@ def root():
     return docs
 
 
-@app.post("/new_card/")
+@app.post("/")
 def new_card(card: Annotated[Card, Form()]):
 
     with MongoClient(uri, server_api=ServerApi('1')) as client:
