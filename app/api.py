@@ -5,7 +5,7 @@ import json
 from fastapi import FastAPI, Form, Body
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Annotated, Optional
-from pydantic import BaseModel, BeforeValidator, 
+from pydantic import BaseModel, BeforeValidator
 
 PyObjectId = Annotated[str, BeforeValidator(str)]
 
@@ -78,7 +78,7 @@ def new_card(card: Card = Body(...)):
 
       new_card["_id"] = result.inserted_id
 
-      return new_card
+    return new_card
   
              
     
