@@ -9,7 +9,6 @@ from pydantic import BaseModel
 
 class Card(BaseModel):
 
-  _id: str | None = None
   termo: str | None = None
   significado: str | None = None
 
@@ -61,17 +60,6 @@ def new_card(card: Annotated[Card, Form()]):
 
     print(card)
     print("feito!!!")
-
-    with MongoClient(uri, server_api=ServerApi('1')) as client:
-      
-      new_card = card.model_dump(by_alias=True, exclude=["_id"])
-
-      print(new_card)
-      db = client.get_database("flash_cards")
-  
-      result = db.cards.insert_one(new_card)
-
-      new_card["_id"] = result.inserted_id
 
     return new_card
   
