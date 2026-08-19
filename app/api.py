@@ -61,7 +61,22 @@ def new_card(card: Annotated[Card, Form()]):
     print(card)
     print("feito!!!")
 
-    return new_card
+    with MongoClient(uri, server_api=ServerApi('1')) as client:
+
+        try:
+      
+            new_card = card.model_dump(by_alias=True)
+
+            print(new_card)
+            db = client.get_database("flash_cards")
+        
+            result = db.cards.insert_one(new_card)
+
+        except:
+
+            print("não deu certo!")    
+
+    return new_card  
   
              
     
