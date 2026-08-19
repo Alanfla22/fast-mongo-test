@@ -10,6 +10,7 @@ from pydantic import BaseModel
 
 class Card(BaseModel):
 
+  _id: str | None = None
   termo: str | None = None
   significado: str | None = None
 
@@ -56,4 +57,5 @@ def root():
 @app.post("/new_card/")
 def new_card(data: Annotated[Card, Form()]):
     print(data)
+    print("feito!!!")
     return data
