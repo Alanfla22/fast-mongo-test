@@ -64,7 +64,7 @@ def new_card(card: Annotated[Card, Form()]):
 
     with MongoClient(uri, server_api=ServerApi('1')) as client:
       
-      new_card = card.model_dump(by_alias=True, exclude=["id"])
+      new_card = card.model_dump(by_alias=True, exclude=["_id"])
 
       print(new_card)
       db = client.get_database("flash_cards")
