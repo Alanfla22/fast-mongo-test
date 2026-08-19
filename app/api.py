@@ -65,9 +65,9 @@ def new_card(card: Annotated[Card, Form()]):
             new_card = card.model_dump(by_alias=True)
 
             db = client.get_database("flash_cards")
-            db.cards.insert_one(new_card)
+            result = db.cards.insert_one(new_card)
 
-            print("card iinserido!")  
+            print(f"card iinserido  {result}!")  
         
         except:
 
