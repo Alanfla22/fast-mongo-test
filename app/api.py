@@ -59,4 +59,4 @@ def root():
 def new_card(data: Annotated[Card, Form()]):
     print(data)
     print("feito!!!")
-    return data
+
