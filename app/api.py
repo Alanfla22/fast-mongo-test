@@ -58,17 +58,16 @@ def root():
 @app.post("/new_card/")
 def new_card(card: Annotated[Card, Form()]):
 
-    print(card)
-    print("feito!!!")
-
     with MongoClient(uri, server_api=ServerApi('1')) as client:
 
         try:
       
             new_card = card.model_dump(by_alias=True)
 
-            print(new_card)
             db = client.get_database("flash_cards")
+            db.cards.insert_one(new_card)
+
+            print("card iinserido!")  
         
         except:
 
