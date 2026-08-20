@@ -15,7 +15,7 @@ class Card(BaseModel):
 
 class CardUpdate(BaseModel):
 
-    _id: str
+    _id: str | None = None
     termo: str | None = None
     significado: str | None = None
 
