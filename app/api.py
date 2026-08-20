@@ -15,7 +15,7 @@ class Card(BaseModel):
 
 class CardUpdate(BaseModel):
 
-    _id: str | None = None
+    id: str | None = None
     termo: str | None = None
     significado: str | None = None
 
@@ -90,13 +90,19 @@ def update_card(card: Annotated[CardUpdate, Form()]):
 
         try:
 
-            query = card.model_dump(by_alias=True)
+            card_update = card.model_dump(by_alias=True)
+
+            id = card_update["id"]
+            query = {
+              "termo": card_update["termo"],
+              "significado"; card_update["significado"]
+            }            
 
             print(query)
-            print(query["_id"])
+            print(id)
 
             db = client.get_database("flash_cards")
-            result = db.cards.update_one({"_id": ObjectId(query["_id"])}, {"$set": query})
+            result = db.cards.update_one({"_id": ObjectId(id)}, {"$set": query})
 
             print("atualizado com sucesso!!")
 
