@@ -86,11 +86,17 @@ def new_card(card: Annotated[Card, Form()]):
 @app.patch("/")
 def update_card(card: Annotated[CardUpdate, Form()]):
 
+    print("1")
+
     with MongoClient(uri, server_api=ServerApi('1')) as client:
 
         try:
 
+            print("2")
+
             card_update = card.model_dump(by_alias=True)
+
+            print(card_update)
 
             id = card_update["id"]
             query = {
