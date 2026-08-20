@@ -6,6 +6,7 @@ from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Annotated
 from pydantic import BaseModel
+from bson import ObjectId
 
 class Card(BaseModel):
 
