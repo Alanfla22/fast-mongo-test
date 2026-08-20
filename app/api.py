@@ -95,7 +95,7 @@ def update_card(card: Annotated[CardUpdate, Form()]):
             id = card_update["id"]
             query = {
               "termo": card_update["termo"],
-              "significado"; card_update["significado"]
+              "significado": card_update["significado"]
             }            
 
             print(query)
