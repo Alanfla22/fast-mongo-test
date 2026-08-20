@@ -13,6 +13,12 @@ class Card(BaseModel):
   termo: str | None = None
   significado: str | None = None
 
+class CardUpdate(BaseModel):
+
+    _id: str
+    termo: str | None = None
+    significado: str | None = None
+
 MONGO_KEY = os.environ["MONGO_KEY"]
 MONGO_USER = "jalanfla15_db_user"
 MONGO_APP = "Cluster"
@@ -37,7 +43,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://flash-card-ycgo.onrender.com", "http://127.0.0.1:5500", "http://127.0.0.1:5500/index.html"],
     allow_credentials=True,
-    allow_methods=["GET", "POST"],
+    allow_methods=["GET", "POST", "PATCH"],
     allow_headers=["application/x-www-form-urlencoded"],
 )
 
@@ -76,6 +82,33 @@ def new_card(card: Annotated[Card, Form()]):
             print("não deu certo!")
 
     return json.dumps(new_card, default=str, ensure_ascii=False)
+
+@app.patch("/")
+def update_card(card: Annotated[CardUpdate, Form()]):
+
+    with MongoClient(uri, server_api=ServerApi('1')) as client:
+
+        try:
+
+            query = card.model_dump(by_alias=True)
+
+            print(query)
+            print(query["_id"])
+
+            db = client.get_database("flash_cards")
+            result = db.cards.update_one({"_id": ObjectId(query["_id"])}, {"$set": query})
+
+            print("atualizado com sucesso!!")
+
+
+        except Exception as e:
+
+            print("falha na exclusão")
+            print(e)
+
+    return json.dumps(query, default=str, ensure_ascii=False)
+
+    
 
 
   
