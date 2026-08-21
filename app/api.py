@@ -14,10 +14,10 @@ class Card(BaseModel):
   significado: str | None = None
 
 class CardUpdate(BaseModel):
-
-    id: str | None = None
-    termo: str | None = None
-    significado: str | None = None
+  
+  termo: str | None = None
+  significado: str | None = None
+  id: str | None = None
 
 MONGO_KEY = os.environ["MONGO_KEY"]
 MONGO_USER = "jalanfla15_db_user"
