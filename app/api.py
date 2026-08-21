@@ -43,7 +43,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://flash-card-ycgo.onrender.com", "http://127.0.0.1:5500", "http://127.0.0.1:5500/index.html"],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PATCH"],
+    allow_methods=["GET", "POST", "PUT"],
     allow_headers=["application/x-www-form-urlencoded"],
 )
 
@@ -83,7 +83,7 @@ def new_card(card: Annotated[Card, Form()]):
 
     return json.dumps(new_card, default=str, ensure_ascii=False)
 
-@app.patch("/")
+@app.put("/")
 def update_card(card: Annotated[CardUpdate, Form()]):
 
     print("1")
