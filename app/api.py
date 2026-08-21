@@ -95,7 +95,7 @@ def update_card(card: CardUpdate):
 
             print("2")
 
-            card_update = card.model_dump(by_alias=True)
+            card_update = card.model_dump()
 
             print(card_update)
 
