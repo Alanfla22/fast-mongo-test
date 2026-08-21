@@ -64,7 +64,7 @@ def root():
 
 
 @app.post("/")
-def new_card(card: Annotated[str, Card()]):
+def new_card(card: Card):
 
     with MongoClient(uri, server_api=ServerApi('1')) as client:
 
