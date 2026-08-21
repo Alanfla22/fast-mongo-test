@@ -26,7 +26,7 @@ MONGO_APP = "Cluster"
 
 uri = f"mongodb+srv://{MONGO_USER}:{MONGO_KEY}@cluster.eeqmwq8.mongodb.net/?appName={MONGO_APP}"
 
-app = FastAPI()
+app = FastAPI(strict_content_type=False)
 
 origins = [
     "http://localhost.tiangolo.com",
