@@ -14,10 +14,11 @@ class Card(BaseModel):
   significado: str | None = None
 
 class CardUpdate(BaseModel):
-  
+
+  id: str | None = None  
   termo: str | None = None
   significado: str | None = None
-  id: str | None = None
+
 
 MONGO_KEY = os.environ["MONGO_KEY"]
 MONGO_USER = "jalanfla15_db_user"
@@ -63,7 +64,7 @@ def root():
 
 
 @app.post("/")
-def new_card(card: Annotated[Card, Form()]):
+def new_card(card: Card):
 
     with MongoClient(uri, server_api=ServerApi('1')) as client:
 
@@ -84,7 +85,7 @@ def new_card(card: Annotated[Card, Form()]):
     return json.dumps(new_card, default=str, ensure_ascii=False)
 
 @app.patch("/")
-def update_card(card: Annotated[CardUpdate, Form()]):
+def update_card(card: CardUpdate):
 
     print("1")
 
