@@ -70,7 +70,7 @@ def new_card(card: Card):
 
         try:
       
-            new_card = card.model_dump(by_alias=True)
+            new_card = card.model_dump()
 
             db = client.get_database("flash_cards")
             result = db.cards.insert_one(new_card)
