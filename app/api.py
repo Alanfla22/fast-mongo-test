@@ -118,17 +118,14 @@ def update_card(card: CardUpdate):
 
     return json.dumps(query, default=str, ensure_ascii=False)
 
-@app.delete("/")
-def delete_card(card: CardUpdate):
+@app.delete("/{card_id}")
+def delete_card(card_id: str):
 
     with MongoClient(uri, server_api=ServerApi('1')) as client:
 
         try:
 
-            card_update = card.model_dump()
-
-            id = card_update["id"]
-            query = {"_id": ObjectId(id)}
+            query = {"_id": ObjectId(card_id)}
   
             db = client.get_database("flash_cards")            
             db.cards.delete_one(query)
