@@ -34,17 +34,14 @@ origins = [
     "http://localhost",
     "http://localhost:8080",
     "http://127.0.0.1:5500",
-    "http://127.0.0.1:5500",
     "http://127.0.0.1:5500/index.html",
-    "http://127.0.0.1:5500/new_card/",
-    "http://127.0.0.1:59614"
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://flash-card-ycgo.onrender.com", "http://127.0.0.1:5500", "http://127.0.0.1:5500/index.html"],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "PATCH"],
+    allow_methods=["GET", "POST", "PATCH", "DELETE"],
     allow_headers=["*"],
 )
 
@@ -109,10 +106,34 @@ def update_card(card: CardUpdate):
             print(id)
 
             db = client.get_database("flash_cards")
-            result = db.cards.update_one({"_id": ObjectId(id)}, {"$set": query})
+            db.cards.update_one({"_id": ObjectId(id)}, {"$set": query})
 
             print("atualizado com sucesso!!")
 
+
+        except Exception as e:
+
+            print("falha na exclusão")
+            print(e)
+
+    return json.dumps(query, default=str, ensure_ascii=False)
+
+@app.delete("/")
+def delete_card(card: CardUpdate):
+
+    with MongoClient(uri, server_api=ServerApi('1')) as client:
+
+        try:
+
+            card_update = card.model_dump()
+
+            id = card_update["id"]
+            query = {"_id": ObjectId(id)}
+  
+            db = client.get_database("flash_cards")            
+            db.cards.delete_one(query)
+
+            print("deletado com sucesso!!")
 
         except Exception as e:
 
