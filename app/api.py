@@ -118,7 +118,7 @@ def update_card(card: CardUpdate):
 
     return json.dumps(query, default=str, ensure_ascii=False)
 
-@app.delete("/{card_id}")
+@app.post("/{card_id}")
 def delete_card(card_id: str):
 
     with MongoClient(uri, server_api=ServerApi('1')) as client:
